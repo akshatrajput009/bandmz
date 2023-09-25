@@ -22,6 +22,10 @@ app.use(express.urlencoded({ extended: true }));
 
 //Routing
 
+app.get("/", (req, res) => {
+  res.send("hello");
+});
+
 app.post("/sendEmail", (req, res) => {
   let { name, email, subject, message } = req.body;
 
