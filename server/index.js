@@ -42,7 +42,7 @@ app.post("/sendEmail", (req, res) => {
 
   let mailOptions = {
     from: "akshatantahal@gmail.com",
-    to: "akshatantahal@gmail.com",
+    to: "info@bandm.cz",
     subject: subject,
     text: `name : ${name}
       email: ${email}
