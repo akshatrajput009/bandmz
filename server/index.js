@@ -22,7 +22,8 @@ app.use(express.urlencoded({ extended: true }));
 
 //Routing
 
-app.get("/", (req, res) => {
+app.get("/hi", (req, res) => {
+  res.status(200).json({ message: "hello akshat" });
   res.send("hello");
 });
 
