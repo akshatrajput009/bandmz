@@ -1,16 +1,17 @@
 const express = require("express");
 const http = require("http");
+require("dotenv").config();
 const nodemailer = require("nodemailer");
 const cors = require("cors");
 
-// const corsOptions = {
-//   origin: "https://651064470c4ca4759a2d6c5b--tiny-madeleine-119d47.netlify.app", // Replace with your client's domain
-//   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-//   optionsSuccessStatus: 204, // Some legacy browsers (IE11, various SmartTVs) choke on 204
-// };
+const corsOptions = {
+  origin: "https://651064470c4ca4759a2d6c5b--tiny-madeleine-119d47.netlify.app", // Replace with your client's domain
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  optionsSuccessStatus: 204, // Some legacy browsers (IE11, various SmartTVs) choke on 204
+};
 
-const app = express(); // Create the Express app before using it
-app.use(cors()); // Set up CORS before defining routes
+const app = express();
+app.use(cors());
 
 const server = http.Server(app);
 
@@ -30,19 +31,19 @@ app.get("/hi", (req, res) => {
 app.post("/sendEmail", (req, res) => {
   let { name, email, subject, message } = req.body;
 
-  console.log(email, subject, message);
-
   let transporter = nodemailer.createTransport({
-    service: "gmail",
+    host: process.env.HOST_NAME,
+    port: process.env.SMPT_PORT,
+    secure: true,
     auth: {
-      user: "akshatantahal@gmail.com",
-      pass: "zmbqwvncdckznuzf",
+      user: process.env.USER_KEY,
+      pass: process.env.PASS_KEY,
     },
   });
 
   let mailOptions = {
-    from: "akshatantahal@gmail.com",
-    to: "info@bandm.cz",
+    from: process.env.USER_KEY,
+    to: process.env.USER_KEY,
     subject: subject,
     text: `name : ${name}
       email: ${email}
@@ -51,10 +52,8 @@ app.post("/sendEmail", (req, res) => {
 
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
-      console.log("error is", error);
       return res.status(404).json({ message: "an error has occurred" });
     } else {
-      console.log("Email.send: " + info.response);
       return res.status(200).json({ message: "Message sent successfully! " });
     }
   });
