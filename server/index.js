@@ -5,9 +5,9 @@ const nodemailer = require("nodemailer");
 const cors = require("cors");
 
 const corsOptions = {
-  origin: "https://651064470c4ca4759a2d6c5b--tiny-madeleine-119d47.netlify.app", // Replace with your client's domain
+  origin: "https://bandm.cz", // Replace with your client's domain
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-  optionsSuccessStatus: 204, // Some legacy browsers (IE11, various SmartTVs) choke on 204
+  optionsSuccessStatus: 204,
 };
 
 const app = express();
